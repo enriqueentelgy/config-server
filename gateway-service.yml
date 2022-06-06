@@ -1,0 +1,27 @@
+server:
+  port: 7000
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: hotel-service-route
+        uri: lb://hotel-service/
+        predicates:
+        - Path=/hoteles/**
+        
+      - id: reserva-service-route
+        uri: lb://reserva-service/
+        predicates:
+        - Path=/reservas/**
+        
+      - id: vuelo-service-route
+        uri: lb://vuelo-service/
+        predicates:
+        - Path=/vuelos/**
+          
+# Config de el servidor  
+eureka: 
+  client:
+    serviceUrl:
+      # Direccion a la que se conecta el microservicio con eureka
+      defaultZone: http://localhost:8761/eureka
